@@ -1,78 +1,58 @@
 public class Operations {
+    static double accuracy = 1_000_000_000;
 
-    double x;
-    double y;
-    double result;
-    double accuracy = 1_000_000_000;
-
-
-    Operations(double i) {
-        x = i;
+    public static double sum(double x, double y) {
+        return x + y;
     }
 
-    Operations(double i, double j) {
-        x = i;
-        y = j;
+    public static double sub(double x, double y) {
+        return x - y;
     }
 
-    public double sum() {
-        result = x + y;
-        return result;
-    }
-
-    public double sub() {
-        result = x - y;
-        return result;
-    }
-
-    public double del() {
+    public static double del(double x, double y) {
         if (y == 0) {
             return Double.MAX_VALUE;
-        } else {
-            result = x / y;
-            return result;
         }
+        return x / y;
     }
 
-    public double mult() {
-        result = x * y;
-        return result;
+    public static double mult(double x, double y) {
+        return x * y;
 
     }
 
-    public double unaryMinus() {
-        result = -x;
-        return result;
+    public static double unaryMinus(double x) {
+        return -x;
     }
 
-    public double per() {
-        result = x / 100;
-        return result;
+    public static double per(double x) {
+        return x / 100;
     }
 
-    private double manyMult(double i, double j) {
-        double manyMult;
+    public static double fact(double x) {
+        if (x == 0) {
+            return 1;
+        }
+        return fact(x - 1) * x;
+    }
+
+    private static double powerMeth(double j, double i) {
         if (i == 0) {
             return 1;
         }
-        manyMult = manyMult(i - 1, j) * j;
-        return manyMult;
+        return powerMeth(j, i - 1) * j;
     }
 
-    public double power() {
-        if (y >= 0) {
-            result = manyMult(y, x);
-            return result;
-        } else {
+    public static double power(double x, double y) {
+        if (y < 0) {
             y = -y;
             x = 1 / x;
-            return manyMult(y, x);
         }
+        return powerMeth(x, y);
     }
 
-    public double sqrt() {
-        double preDot;
-        double postDot;
+    public static double sqrt(double x, double y) {
+        double res = 0;
         boolean check = false;
 
         if (y == 0) {
@@ -84,50 +64,30 @@ public class Operations {
 
         outer:
         for (int i = 0; i < Math.sqrt(Integer.MAX_VALUE); ) {
-            if (manyMult(y, i) < x) {
+            double preDot;
+            if (powerMeth(i, y) < x) {
                 i++;
                 continue;
-            } else if (manyMult(y, i) == x) {
-                preDot = i;
-            } else {
+            }
+            if (powerMeth(i, y) > x) {
                 preDot = i - 1;
+            } else {
+                preDot = i;
             }
             for (double j = 0; j < accuracy; ) {
-                postDot = j / accuracy;
-                result = preDot + postDot;
-                if (manyMult(y, result) < x) {
-                    j++;
-                } else {
+                res = preDot + j / accuracy;
+                if (powerMeth(res, y) >= x) {
                     break outer;
                 }
+                j++;
             }
         }
 
         if (check) {
-            return 1 / result;
+            return 1 / res;
         } else {
-            return result;
+            return res;
         }
     }
 
-    Conditions checkDel() {
-        if (del() == Double.MAX_VALUE && y == 0) {
-            return Conditions.del0;
-        } else {
-            return Conditions.correct;
-        }
-        //Optional
-    }
-
-    Conditions checkSqrt() {
-        if (sqrt() == Double.MAX_VALUE && y == 0) {
-            return Conditions.sqrt0;
-        } else {
-            return Conditions.correct;
-        }
-    }
-
-    enum Conditions {
-        correct, del0, sqrt0
-    }
 }

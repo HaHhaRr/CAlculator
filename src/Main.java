@@ -6,18 +6,18 @@ public class Main {
 
         System.out.println("Введите первое число:");
         double a = sc.nextDouble();
-        Operations op1 = new Operations(a);
         sc.nextLine();
-
         System.out.println("Введите знак операции:");
         String operation = sc.nextLine();
-
         switch (operation) {
             case "+/-":
-                System.out.println(op1.unaryMinus());
+                System.out.println(Operations.unaryMinus(a));
                 break;
             case "%":
-                System.out.println(op1.per());
+                System.out.println(Operations.per(a));
+                break;
+            case "!":
+                System.out.println(Operations.fact(a));
                 break;
         }
 
@@ -25,36 +25,32 @@ public class Main {
                 operation.equals("/") || operation.equals("^") || operation.equals("!^")) {
             System.out.println("Введите второе число:");
             double b = sc.nextDouble();
-            Operations op2 = new Operations(a, b);
             switch (operation) {
                 case "+":
-                    System.out.println(op2.sum());
+                    System.out.println(Operations.sum(a, b));
                     break;
                 case "-":
-                    System.out.println(op2.sub());
+                    System.out.println(Operations.sub(a, b));
                     break;
                 case "*":
-                    System.out.println(op2.mult());
+                    System.out.println(Operations.mult(a, b));
                     break;
                 case "/":
-                    if (op2.checkDel() == Operations.Conditions.del0) {
-                        System.out.println("На ноль делить нельзя, введите другое число");
-                    } else {
-                        System.out.println(op2.del());
+                    Errors.checkDel(a, b);
+                    if (Errors.bool) {
+                        System.out.println(Operations.del(a, b));
                     }
                     break;
                 case "^":
-                    System.out.println(op2.power());
+                    System.out.println(Operations.power(a, b));
                     break;
                 case "!^":
-                    if (op2.checkSqrt() == Operations.Conditions.sqrt0) {
-                        System.out.println("Недопустимое число показателя корня");
-                    } else {
-                        System.out.println(op2.sqrt());
+                    Errors.checkSqrt(a, b);
+                    if (Errors.bool) {
+                        System.out.println(Operations.sqrt(a, b));
                     }
                     break;
             }
         }
-
     }
 }
