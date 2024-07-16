@@ -10,15 +10,11 @@ public class Operations {
     }
 
     public static double del(double x, double y) {
-        if (y == 0) {
-            return Double.MAX_VALUE;
-        }
         return x / y;
     }
 
     public static double mult(double x, double y) {
         return x * y;
-
     }
 
     public static double unaryMinus(double x) {
@@ -52,12 +48,10 @@ public class Operations {
     }
 
     public static double sqrt(double x, double y) {
-        double res = 0;
+        double result = 0;
         boolean check = false;
 
-        if (y == 0) {
-            return Double.MAX_VALUE;
-        } else if (y < 0) {
+        if (y < 0) {
             y = -y;
             check = true;
         }
@@ -75,8 +69,8 @@ public class Operations {
                 preDot = i;
             }
             for (double j = 0; j < accuracy; ) {
-                res = preDot + j / accuracy;
-                if (powerMeth(res, y) >= x) {
+                result = preDot + j / accuracy;
+                if (powerMeth(result, y) >= x) {
                     break outer;
                 }
                 j++;
@@ -84,9 +78,9 @@ public class Operations {
         }
 
         if (check) {
-            return 1 / res;
+            return 1 / result;
         } else {
-            return res;
+            return result;
         }
     }
 }
