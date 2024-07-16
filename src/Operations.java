@@ -1,19 +1,19 @@
 public class Operations {
     static double accuracy = 1_000_000_000;
 
-    public static double sum(double x, double y) {
+    public static double summarize(double x, double y) {
         return x + y;
     }
 
-    public static double sub(double x, double y) {
+    public static double subtraction(double x, double y) {
         return x - y;
     }
 
-    public static double del(double x, double y) {
+    public static double division(double x, double y) {
         return x / y;
     }
 
-    public static double mult(double x, double y) {
+    public static double multiplication(double x, double y) {
         return x * y;
     }
 
@@ -21,22 +21,22 @@ public class Operations {
         return -x;
     }
 
-    public static double per(double x) {
+    public static double percent(double x) {
         return x / 100;
     }
 
-    public static double fact(double x) {
+    public static double factorial(double x) {
         if (x == 0) {
             return 1;
         }
-        return fact(x - 1) * x;
+        return factorial(x - 1) * x;
     }
 
-    private static double powerMeth(double j, double i) {
+    private static double powerAbstract(double j, double i) {
         if (i == 0) {
             return 1;
         }
-        return powerMeth(j, i - 1) * j;
+        return powerAbstract(j, i - 1) * j;
     }
 
     public static double power(double x, double y) {
@@ -44,40 +44,40 @@ public class Operations {
             y = -y;
             x = 1 / x;
         }
-        return powerMeth(x, y);
+        return powerAbstract(x, y);
     }
 
     public static double sqrt(double x, double y) {
         double result = 0;
-        boolean check = false;
+        boolean isNegative = false;
 
         if (y < 0) {
             y = -y;
-            check = true;
+            isNegative = true;
         }
 
         outer:
         for (int i = 0; i < Math.sqrt(Integer.MAX_VALUE); ) {
             double preDot;
-            if (powerMeth(i, y) < x) {
+            if (powerAbstract(i, y) < x) {
                 i++;
                 continue;
             }
-            if (powerMeth(i, y) > x) {
+            if (powerAbstract(i, y) > x) {
                 preDot = i - 1;
             } else {
                 preDot = i;
             }
             for (double j = 0; j < accuracy; ) {
                 result = preDot + j / accuracy;
-                if (powerMeth(result, y) >= x) {
+                if (powerAbstract(result, y) >= x) {
                     break outer;
                 }
                 j++;
             }
         }
 
-        if (check) {
+        if (isNegative) {
             return 1 / result;
         } else {
             return result;

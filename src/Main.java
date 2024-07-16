@@ -2,74 +2,66 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String answer = "Ответ: ";
         Scanner sc = new Scanner(System.in);
-        double firstComponent = 0;
-        boolean firstIsDouble = true;
-        boolean secondIsDouble = true;
+        double firstComponent = SystemMethods.checkAndSetValueOfComponent("Введите превое число", sc);
 
-        firstComponent = SystemMethods.checkInputComponent("Введите первое число:", sc, firstIsDouble, firstComponent);
-
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-
+        while (true) {
             sc.nextLine();
             System.out.println("Введите знак операции:");
             String sign = sc.nextLine();
             double resultOfOperation = 0;
-
             if (sign.equals("+/-") || sign.equals("%") || sign.equals("!")) {
+
                 switch (sign) {
                     case "+/-":
                         resultOfOperation = Operations.unaryMinus(firstComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                     case "%":
-                        resultOfOperation = Operations.per(firstComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        resultOfOperation = Operations.percent(firstComponent);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                     case "!":
-                        resultOfOperation = Operations.fact(firstComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        resultOfOperation = Operations.factorial(firstComponent);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                 }
             } else if (sign.equals("+") || sign.equals("-") || sign.equals("*") ||
                     sign.equals("/") || sign.equals("^") || sign.equals("!^")) {
 
-                double secondComponent = 0;
-                secondComponent = SystemMethods.checkInputComponent("Введите второе число:", sc, secondIsDouble, secondComponent);
-
+                double secondComponent = SystemMethods.checkAndSetValueOfComponent("Введите второе число:", sc);
                 switch (sign) {
                     case "+":
-                        resultOfOperation = Operations.sum(firstComponent, secondComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        resultOfOperation = Operations.summarize(firstComponent, secondComponent);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                     case "-":
-                        resultOfOperation = Operations.sub(firstComponent, secondComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        resultOfOperation = Operations.subtraction(firstComponent, secondComponent);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                     case "*":
-                        resultOfOperation = Operations.mult(firstComponent, secondComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        resultOfOperation = Operations.multiplication(firstComponent, secondComponent);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                     case "/":
                         if (secondComponent == 0) {
                             System.out.println("Неправильный символ");
-                            secondComponent = SystemMethods.checkInputComponent("Введите второе число:", sc, secondIsDouble, secondComponent);
+                            secondComponent = SystemMethods.checkAndSetValueOfComponent("Введите второе число:", sc);
                         }
-                        resultOfOperation = Operations.del(firstComponent, secondComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        resultOfOperation = Operations.division(firstComponent, secondComponent);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                     case "^":
                         resultOfOperation = Operations.power(firstComponent, secondComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                     case "!^":
                         if (secondComponent == 0) {
                             System.out.println("Неправильный символ");
-                            secondComponent = SystemMethods.checkInputComponent("Введите второе число:", sc, secondIsDouble, secondComponent);
+                            secondComponent = SystemMethods.checkAndSetValueOfComponent("Введите второе число:", sc);
                         }
                         resultOfOperation = Operations.sqrt(firstComponent, secondComponent);
-                        SystemMethods.showResult(answer, resultOfOperation);
+                        SystemMethods.showResult(resultOfOperation);
                         break;
                 }
             } else if (sign.equals(".")) {

@@ -2,12 +2,13 @@ import java.util.Scanner;
 
 public class SystemMethods {
 
-    static double checkInputComponent(String message, Scanner sc, boolean ifTrue, double component) {
-        while (ifTrue) {
+    static double checkAndSetValueOfComponent(String message, Scanner sc) {
+        double component;
+        while (true) {
             System.out.println(message);
             if (sc.hasNextDouble()) {
                 component = sc.nextDouble();
-                ifTrue = !ifTrue;
+                break;
             } else {
                 System.out.println("Неправильный символ");
                 sc.next();
@@ -16,8 +17,8 @@ public class SystemMethods {
         return component;
     }
 
-    static void showResult(String answer, double resultOfOperation) {
-        System.out.println(answer);
+    static void showResult(double resultOfOperation) {
+        System.out.println("Ответ:");
         System.out.println(resultOfOperation);
     }
 }
