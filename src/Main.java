@@ -80,7 +80,6 @@ public class Main {
             }
 
             firstComponent = resultOfOperation;
-            secondIsDouble = true;
         }
     }
 }
